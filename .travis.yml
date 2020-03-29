@@ -1,0 +1,20 @@
+language: python
+dist: bionic
+python: 3.8
+
+addons:
+  apt:
+    packages:
+      - ffmpeg
+      - mediainfo
+
+install:
+ - ./setup.sh
+ - ./setup_yami.sh
+ - ./setup_aom.sh
+ - ./setup_openh264.sh
+ - ./setup_vmaf.sh
+
+script:
+ - ./generate_data.py --help
+ - ./generate_data.py --out=libvpx-rt.txt --encoders=libvpx-rt:vp8,libvpx-rt:vp9 clip1.320_240.yuv:30 clip2.320_180.yuv:30 clip3.y4m
